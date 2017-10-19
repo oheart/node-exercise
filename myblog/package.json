@@ -1,0 +1,23 @@
+{
+  "name": "myblog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "config-lite": "2.1.0",
+    "connect-flash": "0.1.1",
+    "connect-mongo": "2.0.0",
+    "ejs": "2.5.7",
+    "express": "4.16.2",
+    "express-formidable": "1.0.0",
+    "express-session": "1.15.6",
+    "marked": "0.3.6",
+    "moment": "2.19.1"
+  }
+}
