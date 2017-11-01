@@ -1,10 +1,4 @@
-## node-exercise
-practice  node by doing something
-
-## [参考链接](https://github.com/nswbmw/N-blog)(https://cnodejs.org/topic/523513d3101e57452141d0b1)
-
-
-#启动程序 
+## 启动程序 
 
 - 1.node  index
 - 2.
@@ -14,4 +8,6 @@ practice  node by doing something
     运行 supervisor --harmony index 启动程序
 
 
+[链接1](https://github.com/nswbmw/N-blog)
+[链接2](https://cnodejs.org/topic/523513d3101e57452141d0b1)
 
