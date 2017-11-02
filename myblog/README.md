@@ -29,3 +29,22 @@
 ###  app.locals和res.locals区别
 
 app.locals上通常挂载常量信息（如博客名、描述、作者信息），res.locals上通常挂载变量信息，即每次请求可能的值都不一样（如请求作者信息，res.locals.user = req.session.user）;
+
+
+##  pm2 
+
+-  Nodejs下的生产环境进程管理工具，可以用来在生产环境中进行自动重启、日志记录、错误预警等。  
+    - 全局安装pm2   
+        npm install pm2 -g  
+    - 修改package.json,添加start命令  
+        *package.json*  
+            "scripts": {
+                "start": "NODE_ENV=production pm2 start index.js --node-args='--harmony' --name 'myblog'"
+            }
+    - npm start 通过 pm2 启动程序  
+- npm2常见命令
+    - npm2  start/stop :启动/停止程序
+    - npm2  reload/restart [id|name]:重启程序
+    - pm2   logs [id|name]:查看日志
+    - pm2   l/list:列出程序列表
+    - 更多命令可使用 pm2 -h 查看。
