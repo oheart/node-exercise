@@ -5,5 +5,4 @@ node_modules
 coverage
 .idea
 .vscode
-yarn.lock
 .DS_Store
