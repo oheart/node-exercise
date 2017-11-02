@@ -5,7 +5,7 @@ module.exports = {
         key: 'myblog',
         maxAge: 2592000000
     },
-    mongodb: 'mongodb://<dbuser>:<dbpassword>@ds243295.mlab.com:43295/nuanblog'
+    mongodb: 'mongodb://localhost:27017/myblog'
 }
 
 // 配置释义
