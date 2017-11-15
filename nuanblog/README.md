@@ -28,5 +28,5 @@
     - 留言内容           -->   content: { type:'string'}
     - 关联的文章id       -->   postId: { type: Mongolass.Types.ObjectId }
 ## mongolass
-[npm mongolass](https://www.npmjs.com/package/mongolass)
+[npm mongolass](https://www.npmjs.com/package/mongolass)  
 [从零开始写一个 Node.js 的 MongoDB 驱动库](https://zhuanlan.zhihu.com/p/24308524)
