@@ -1,0 +1,51 @@
+<% if(posts.length) { %>
+
+<div class="page-box">
+     <div class="ui pagination menu">
+
+            <% if(page == 1) { %>
+                <span class="item disabled">
+                    <i class="left arrow icon"></i>
+                 </span>
+            <% }else{ %>
+                <a class="item"
+                    href="?page=<%= page - 1 %><%= author ? ('&author=' + author) : '' %>">
+                    <i class="left arrow icon"></i>
+                </a>
+            <% } %>
+
+            <% var ifShowEllipsisFlag = false %>
+            <% for(var i = 1; i <= pageNum; i ++ ){ %>
+                     <% /*获取中间页*/ %>
+                     <% var middlePage = Math.ceil(pageNum /2) %>
+                     <% /*如果是页首，中间页，页尾，当前页的前后三页则不省略。*/ %>
+                     <% if(i == 1 || i == pageNum || i == middlePage ||  i > page - 3 && i < page + 3 ) { %>
+                            <a class="item  <%= page === i ?  'active' : '' %>"
+                                href="?page=<%= i %><%= author ? ('&author=' + author) : '' %>">
+                                    <%= i %>
+                            </a>
+                            <% ifShowEllipsisFlag = true %>
+                     <% }else if(ifShowEllipsisFlag){ %>
+                        <% /*如果是其他的则构造省略号....,这个ifShowEllipsisFlag的意思，是如果构造了一次...点点点，就不要再构造了。当你遇到不省略的内容之后，再构造...。*/ %>
+                            <a class="item  disabled">
+                                    ...
+                            </a>
+                            <% ifShowEllipsisFlag = false %>
+                     <% } %>
+            <% } %>
+
+
+            <% if(page == pageNum) { %>
+                <span class="item disabled">
+                    <i class="right arrow icon"></i>
+                </span>
+            <% }else{ %>
+                 <a class="item"
+                    href="?page=<%= page + 1 %><%= author ? ('&author=' + author) : '' %>">
+                    <i class="right arrow icon"></i>
+                </a>
+            <% } %>
+    </div>
+</div>
+
+<% } %>

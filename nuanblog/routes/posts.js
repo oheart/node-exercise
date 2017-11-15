@@ -1,3 +1,4 @@
+const { URL } = require('url')
 const express = require('express');
 const router = express.Router();
 
@@ -9,14 +10,32 @@ const checkLogin = require('../middlewares/check').checkLogin;
 // eg: GET /posts?author=xxx
 router.get('/',function(req, res, next){
     const author = req.query.author;
-    PostModel.getPosts(author)
-        .then(function(posts){
+    //当前页
+    const page = parseInt(req.query.page) || 1;
+    //每页显示多少条
+    const perPage = 5;
+
+    Promise.all([
+        PostModel.getPosts(author, page, perPage),
+        PostModel.getCount(author),
+    ])
+        .then(function(result){
+            var pageNum = Math.ceil(result[1] / perPage);
+
             res.render('posts',{
-                posts: posts
+                posts: result[0],      //获取所有文章
+                count: result[1],      //总条数
+                page: page,           //当前页
+                pageNum: pageNum,     //总页数
+                author: author      //获取作者信息
             })
         })
         .catch(next)
+
+
 })
+
+
 
 //GET /posts/create 发表文章页
 router.get('/create', checkLogin, function(req, res, next){
@@ -156,11 +175,18 @@ router.post('/:postId/comment', checkLogin, function(req, res, next){
    const author = req.session.user._id
    const postId = req.params.postId
    const content = req.fields.content
-   const comment = {
-       author: author,
-       postId: postId,
-       content: content
-   }
+   const replyId = req.fields.replyId;
+
+
+    const comment = {
+        author: author,
+        postId: postId,
+        content: content
+    }
+
+    if(replyId){
+        comment.replyId = replyId
+    }
    CommentModel.create(comment)
         .then(function(){
             req.flash('success','留言成功');

@@ -31,7 +31,7 @@ router.post('/', checkNotLogin, function(req, res, next){
             throw new Error('两次输入密码不一致')
         }
         if(['m', 'f', 'x'].indexOf(gender) === -1){
-            throw new Error('性别只能是m、f 或 x')
+            throw new Error('性别只能是 m、f 或 x')
         }
         if(!req.files.avatar.name){
             throw new Error('缺少头像')

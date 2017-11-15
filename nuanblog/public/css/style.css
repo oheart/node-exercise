@@ -76,3 +76,15 @@ body {
   .post-content .tag.right a {
     color: #999;
   }
+/* ---------- comment ---------- */
+.replyContent {
+    padding: 8px;
+    background-color: #eee;
+    color: #666 !important;
+}
+
+
+.page-box{
+    text-align:center;
+    margin-top:20px;
+}

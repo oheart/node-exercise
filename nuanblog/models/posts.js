@@ -39,6 +39,9 @@ Post.plugin('contentToHtml',{
     }
 })
 
+
+
+
 module.exports = {
     //创建一篇文章
     create: function create(post){
@@ -55,18 +58,30 @@ module.exports = {
             .exec()
     },
     //按创建时间降序获取所有用户文章或者某个特定用户的所有文章
-    getPosts: function getPosts(author){
+    getPosts: function getPosts(author, page, perPage){
         const query = {};
         if(author){
             query.author = author;
         }
         return Post
                 .find(query)
+                .skip((page -1) * perPage)
+                .limit(perPage)
                 .populate({ path: 'author', model: 'User'})
                 .sort({_id: -1})
                 .addCreatedAt()
                 .addCommentsCount()
                 .contentToHtml()
+                .exec()
+    },
+    //获取文章总数
+    getCount: function getCount(author){
+        const query = {};
+        if(author){
+            query.author = author;
+        }
+        return Post
+                .count(query)
                 .exec()
     },
     //通过文章id给pv加1

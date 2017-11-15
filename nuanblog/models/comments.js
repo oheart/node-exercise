@@ -11,6 +11,7 @@ Comment.plugin('contentToHtml',{
     }
 })
 
+
 module.exports = {
     //创建一个留言
     create: function create(comment){
@@ -33,6 +34,22 @@ module.exports = {
             .addCreatedAt()
             .contentToHtml()
             .exec()
+            .then(function (comments){
+                const commentsObj = {};
+                comments.forEach(function (comment){        //key是commentId, value是comments
+                    commentsObj[comment._id.toString()]= comment;
+                })
+                console.log('before commentsObj: ',commentsObj);
+
+                comments.forEach(function (comment){
+                    if(comment.replyId){
+                        //把回复的留言放在replyComment里
+                        comment.replyComment = commentsObj[comment.replyId.toString()]
+                    }
+                })
+                console.log('after commentsObj: ',commentsObj);
+                return comments;
+            })
     },
     //通过文章id获取改文章下留言数
     getCommentsCount: function getCommentsCount(postId){

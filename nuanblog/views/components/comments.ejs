@@ -11,18 +11,49 @@
               <img src="/img/<%= comment.author.avatar %>">
             </span>
             <div class="content">
-              <a class="author" href="/posts?author=<%= comment.author._id %>"><%= comment.author.name %></a>
+              <a class="author" href=" >"><%= comment.author.name %></a >
               <div class="metadata">
                 <span class="date"><%= comment.created_at %></span>
               </div>
               <div class="text"><%- comment.content %></div>
 
-              <% if (user && comment.author._id && user._id.toString() === comment.author._id.toString()) { %>
-                <div class="actions">
-                  <a class="reply" href="/posts/<%= post._id %>/comment/<%= comment._id %>/remove">删除</a>
+
+              <% if(comment.replyId) { %>
+                <div class="text replyContent">
+                    回复
+                    <a href="/posts?author=<%= comment.replyComment.author._id  %>">
+                        <%= comment.replyComment.author.name %>
+                    </a >
+                    <span>发表的: </span>
+                    <span><%- comment.replyComment.content %></span>
                 </div>
               <% } %>
+
+
+
+              <% if (user) { %>
+                <div class="actions">
+                  <a class="reply">回复</a >
+
+                  <% if (comment.author._id && user._id.toString() === comment.author._id.toString()) { %>
+                    <a class="reply" href="/posts/<%= post._id %>/comment/<%= comment._id %>/remove">删除</a >
+                  <% } %>
+
+                </div>
+              <% } %>
+
+
+
+
             </div>
+            <form class="ui reply form" method="post" action="/posts/<%= post._id %>/comment" hidden>
+              <div class="field">
+                <input name="replyId" value="<%= comment._id %>" hidden/>
+                <textarea name="content"></textarea>
+              </div>
+              <input  type="submit" class="ui submit icon button" value="回复留言"/>
+              <div class="ui submit icon button cancel">取消</div>
+            </form>
           </div>
         <% }) %>
 
@@ -35,6 +66,14 @@
           </form>
         <% } %>
 
+        <script type="text/javascript">
+          $('.content .actions a').click(function (e) {
+            $(this).parent().parent().siblings('form').show(500)
+          })
+          $('.comment form .cancel').click(function (e) {
+            $(this).parent().hide(500)
+          })
+        </script>
       </div>
     </div>
   </div>
